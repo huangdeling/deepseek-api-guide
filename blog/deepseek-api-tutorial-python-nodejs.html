@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek API Tutorial: Python & Node.js Setup (2026) | ChinaAI.tools</title>
+    <meta name="description" content="Step-by-step DeepSeek API tutorial with Python and Node.js code examples. Learn streaming, function calling, error handling, and production tips.">
+    <meta name="keywords" content="deepseek api tutorial, deepseek python, deepseek nodejs, deepseek api example, deepseek setup guide">
+    <link rel="canonical" href="https://www.ziwenh.xyz/blog/deepseek-api-tutorial-python-nodejs.html">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="DeepSeek API Tutorial: Python & Node.js Setup (2026)">
+    <meta property="og:description" content="Complete tutorial with code examples for DeepSeek API integration.">
+    <meta property="og:type" content="article">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.8; color: #1f2937; background: #f8fafc; }
+        .article-header { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 80px 20px 60px; text-align: center; }
+        .article-header h1 { font-size: 2.5rem; margin-bottom: 15px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .article-meta { font-size: 0.95rem; opacity: 0.9; }
+        .article-container { max-width: 800px; margin: -40px auto 60px; background: white; border-radius: 16px; padding: 50px 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        h2 { font-size: 1.8rem; color: #1f2937; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; }
+        h3 { font-size: 1.3rem; color: #374151; margin: 25px 0 12px; }
+        p { margin-bottom: 16px; color: #4b5563; }
+        .code { background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 10px; font-family: 'Courier New', monospace; font-size: 14px; overflow-x: auto; margin: 15px 0; line-height: 1.6; }
+        .code .comment { color: #94a3b8; }
+        .code .keyword { color: #c084fc; }
+        .code .string { color: #86efac; }
+        .code .function { color: #93c5fd; }
+        .highlight { background: #eff6ff; padding: 20px; border-radius: 10px; border-left: 4px solid #3b82f6; margin: 20px 0; }
+        .warning { background: #fef3c7; padding: 20px; border-radius: 10px; border-left: 4px solid #f59e0b; margin: 20px 0; }
+        .cta-box { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 30px 0; }
+        .cta-box a { display: inline-block; background: white; color: #3b82f6; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 15px; }
+        .back-link { display: inline-block; color: #3b82f6; text-decoration: none; margin-bottom: 20px; font-weight: 500; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 10px; overflow: hidden; }
+        th { background: #3b82f6; color: white; padding: 12px 16px; text-align: left; }
+        td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+        ul { margin: 10px 0 20px 20px; }
+        li { margin-bottom: 8px; color: #4b5563; }
+        @media (max-width: 768px) { .article-container { padding: 30px 20px; margin: -20px 15px 40px; } .article-header h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <div class="article-header">
+        <a href="/" style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold;">⛏️ ChinaAI.tools</a>
+        <h1>DeepSeek API Tutorial: Python & Node.js Setup</h1>
+        <div class="article-meta">Published June 12, 2026 · 15 min read</div>
+    </div>
+
+    <div class="article-container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <p>This tutorial covers everything you need to integrate DeepSeek API into your Python or Node.js application. DeepSeek offers GPT-4o quality at <strong>1/100th the cost</strong> ($0.14/M tokens vs $15/M).</p>
+
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>A DeepSeek account (sign up at platform.deepseek.com)</li>
+            <li>An API key (generate in the API Keys section)</li>
+            <li>Python 3.8+ or Node.js 18+</li>
+        </ul>
+
+        <div class="warning">
+            <strong>Don't have a DeepSeek account?</strong> We can help you set up and recharge your account. <a href="/#products">Check our API recharge service →</a>
+        </div>
+
+        <h2>Part 1: Python Setup</h2>
+
+        <h3>Step 1: Install the OpenAI Library</h3>
+        <div class="code">pip install openai</div>
+
+        <h3>Step 2: Basic Chat Request</h3>
+        <div class="code"><span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI
+
+client = OpenAI(
+    api_key=<span class="string">"your-deepseek-api-key"</span>,
+    base_url=<span class="string">"https://api.deepseek.com"</span>
+)
+
+response = client.chat.completions.create(
+    model=<span class="string">"deepseek-chat"</span>,
+    messages=[
+        {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"What is the capital of France?"</span>}
+    ]
+)
+
+<span class="function">print</span>(response.choices[0].message.content)</div>
+
+        <h3>Step 3: Streaming Responses</h3>
+        <div class="code">stream = client.chat.completions.create(
+    model=<span class="string">"deepseek-chat"</span>,
+    messages=[
+        {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Write a short poem about coding"</span>}
+    ],
+    stream=<span class="keyword">True</span>
+)
+
+<span class="keyword">for</span> chunk <span class="keyword">in</span> stream:
+    <span class="keyword">if</span> chunk.choices[0].delta.content:
+        <span class="function">print</span>(chunk.choices[0].delta.content, end=<span class="string">""</span>)</div>
+
+        <h3>Step 4: Multi-Turn Conversation</h3>
+        <div class="code">messages = [
+    {<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: <span class="string">"You are a helpful coding assistant."</span>},
+    {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"How do I reverse a string in Python?"</span>}
+]
+
+response = client.chat.completions.create(
+    model=<span class="string">"deepseek-chat"</span>,
+    messages=messages
+)
+
+<span class="comment"># Add assistant response to conversation</span>
+messages.append({
+    <span class="string">"role"</span>: <span class="string">"assistant"</span>,
+    <span class="string">"content"</span>: response.choices[0].message.content
+})
+
+<span class="comment"># Continue conversation</span>
+messages.append({
+    <span class="string">"role"</span>: <span class="string">"user"</span>,
+    <span class="string">"content"</span>: <span class="string">"Can you explain that step by step?"</span>
+})
+
+response2 = client.chat.completions.create(
+    model=<span class="string">"deepseek-chat"</span>,
+    messages=messages
+)</div>
+
+        <h3>Step 5: Function Calling</h3>
+        <div class="code">response = client.chat.completions.create(
+    model=<span class="string">"deepseek-chat"</span>,
+    messages=[
+        {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"What's the weather in Tokyo?"</span>}
+    ],
+    tools=[{
+        <span class="string">"type"</span>: <span class="string">"function"</span>,
+        <span class="string">"function"</span>: {
+            <span class="string">"name"</span>: <span class="string">"get_weather"</span>,
+            <span class="string">"description"</span>: <span class="string">"Get weather for a city"</span>,
+            <span class="string">"parameters"</span>: {
+                <span class="string">"type"</span>: <span class="string">"object"</span>,
+                <span class="string">"properties"</span>: {
+                    <span class="string">"city"</span>: {<span class="string">"type"</span>: <span class="string">"string"</span>}
+                },
+                <span class="string">"required"</span>: [<span class="string">"city"</span>]
+            }
+        }
+    }]
+)</div>
+
+        <h2>Part 2: Node.js Setup</h2>
+
+        <h3>Step 1: Install the OpenAI Library</h3>
+        <div class="code">npm install openai</div>
+
+        <h3>Step 2: Basic Chat Request</h3>
+        <div class="code"><span class="keyword">import</span> OpenAI <span class="keyword">from</span> <span class="string">'openai'</span>;
+
+<span class="keyword">const</span> client = <span class="keyword">new</span> OpenAI({
+    apiKey: <span class="string">'your-deepseek-api-key'</span>,
+    baseURL: <span class="string">'https://api.deepseek.com'</span>
+});
+
+<span class="keyword">const</span> response = <span class="keyword">await</span> client.chat.completions.create({
+    model: <span class="string">'deepseek-chat'</span>,
+    messages: [{ role: <span class="string">'user'</span>, content: <span class="string">'Hello!'</span> }]
+});
+
+console.log(response.choices[0].message.content);</div>
+
+        <h3>Step 3: Streaming in Node.js</h3>
+        <div class="code"><span class="keyword">const</span> stream = <span class="keyword">await</span> client.chat.completions.create({
+    model: <span class="string">'deepseek-chat'</span>,
+    messages: [{ role: <span class="string">'user'</span>, content: <span class="string">'Tell me a story'</span> }],
+    stream: <span class="keyword">true</span>
+});
+
+<span class="keyword">for await</span> (<span class="keyword">const</span> chunk <span class="keyword">of</span> stream) {
+    <span class="keyword">const</span> content = chunk.choices[0]?.delta?.content;
+    <span class="keyword">if</span> (content) process.stdout.write(content);
+}</div>
+
+        <h2>Part 3: Error Handling</h2>
+
+        <div class="code"><span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI, APIError, RateLimitError
+
+client = OpenAI(
+    api_key=<span class="string">"your-key"</span>,
+    base_url=<span class="string">"https://api.deepseek.com"</span>
+)
+
+<span class="keyword">try</span>:
+    response = client.chat.completions.create(
+        model=<span class="string">"deepseek-chat"</span>,
+        messages=[{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Hello"</span>}]
+    )
+<span class="keyword">except</span> RateLimitError:
+    <span class="function">print</span>(<span class="string">"Rate limited. Wait and retry."</span>)
+<span class="keyword">except</span> APIError <span class="keyword">as</span> e:
+    <span class="function">print</span>(<span class="string">f"API error: </span>{e}<span class="string">"</span>)
+<span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+    <span class="function">print</span>(<span class="string">f"Unexpected error: </span>{e}<span class="string">"</span>)</div>
+
+        <h2>Part 4: Cost Optimization Tips</h2>
+
+        <div class="highlight">
+            <strong>Pro tip:</strong> Use DeepSeek's cache feature. When you send the same prefix multiple times, cached tokens cost only $0.0028/M (vs $0.14/M). This is 50x cheaper for repeated prompts.
+        </div>
+
+        <ul>
+            <li><strong>Use system prompts wisely:</strong> Put instructions in the system message, not repeated in every user message</li>
+            <li><strong>Limit max_tokens:</strong> Set a reasonable limit to avoid paying for unnecessary output</li>
+            <li><strong>Cache common prompts:</strong> DeepSeek automatically caches repeated prefixes</li>
+            <li><strong>Batch requests:</strong> Process multiple items in one API call when possible</li>
+            <li><strong>Use the Flash model:</strong> For most tasks, V4-Flash ($0.14/M) is sufficient</li>
+        </ul>
+
+        <h2>Part 5: Production Deployment</h2>
+
+        <h3>Environment Variables</h3>
+        <div class="code"><span class="comment"># .env file</span>
+DEEPSEEK_API_KEY=your-api-key-here</div>
+
+        <h3>Rate Limiting</h3>
+        <div class="code"><span class="keyword">import</span> time
+
+<span class="keyword">def</span> <span class="function">call_with_retry</span>(func, max_retries=3):
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(max_retries):
+        <span class="keyword">try</span>:
+            <span class="keyword">return</span> func()
+        <span class="keyword">except</span> RateLimitError:
+            time.sleep(2 ** i)  <span class="comment"># Exponential backoff</span>
+    <span class="keyword">raise</span> Exception(<span class="string">"Max retries exceeded"</span>)</div>
+
+        <div class="cta-box">
+            <h3>Need Help Setting Up?</h3>
+            <p>Our guide includes copy-paste code, troubleshooting tips, and production best practices</p>
+            <a href="/#products">Get the Complete Guide →</a>
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>DeepSeek API is a drop-in replacement for OpenAI. The same library, same format, same code — just change the base_url and API key. You get GPT-4o quality at 1/100th the cost.</p>
+        <p>The setup takes 5 minutes. The savings last forever.</p>
+    </div>
+
+    <footer style="text-align: center; padding: 30px; color: #6b7280; font-size: 14px;">
+        <p>&copy; 2026 ChinaAI.tools | <a href="/privacy.html" style="color: #6366f1;">Privacy</a> | <a href="/contact.html" style="color: #6366f1;">Contact</a></p>
+    </footer>
+</body>
+</html>
